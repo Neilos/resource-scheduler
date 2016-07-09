@@ -16,6 +16,8 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     flex: '1 1 auto',
+    height: '100%',
+    width: '100%',
   },
   Paper: {
     display: 'flex',
