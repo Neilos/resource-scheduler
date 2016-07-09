@@ -52,6 +52,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     alignContent: 'space-between',
+    alignItems: 'center',
     paddingLeft: dimensions.desktopGutterLess,
     zIndex: 3,
     height: dimensions.STREAM_CHANNEL_HEIGHT,
