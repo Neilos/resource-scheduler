@@ -11,7 +11,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     flex: '1 1 auto',
-    padding: 16,
+    padding: 0,
     height: `calc(100% - ${dimensions.desktopKeylineIncrement}px)`,
   },
 }

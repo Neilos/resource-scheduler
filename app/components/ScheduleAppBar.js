@@ -34,7 +34,7 @@ export default function ScheduleAppBar (props) {
 
   return (
     <AppBar
-      zDepth={2}
+      zDepth={1}
       title="Scheduler"
       iconElementLeft={
         <IconButton>
