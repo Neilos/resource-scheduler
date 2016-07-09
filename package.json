@@ -18,10 +18,10 @@
     "url": "git://github.com/neilos"
   },
   "dependencies": {
-    "material-ui": "^0.15.0-beta.2",
+    "material-ui": "^0.15.1",
     "moment": "^2.13.0",
     "moment-range": "^2.2.0",
-    "react": "^15.0.1",
+    "react": "^15.2.1",
     "react-dom": "^15.0.1",
     "react-flip-move": "^2.1.1",
     "react-redux": "^4.4.5",
