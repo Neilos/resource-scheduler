@@ -30,7 +30,7 @@ export const spacing = {
   desktopGutterMore: 32,
   desktopGutterLess: 16,
   desktopGutterMini: 8,
-  desktopKeylineIncrement: 64,
+  desktopKeylineIncrement: 56,
   desktopDropDownMenuItemHeight: 32,
   desktopDropDownMenuFontSize: 15,
   desktopDrawerMenuItemHeight: 48,
