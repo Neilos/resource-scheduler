@@ -2,11 +2,23 @@ import React, { Component, PropTypes } from 'react'
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton'
 
+import dimensions from '../constants/dimensions'
+
 import FormResource from './FormResource'
 import FormActivity from './FormActivity'
 import FormDateRange from './FormDateRange'
 
-const styles = {}
+const styles = {
+  contentStyle: {
+    width: `calc(100% - ${dimensions.desktopGutter}px)`,
+    maxWidth: 650,
+  },
+  bodyStyle: {
+    padding: 0,
+    paddingLeft: dimensions.desktopGutter,
+    paddingRight: dimensions.desktopGutter,
+  }
+}
 
 export default function DialogForm(props) {
   const {
@@ -81,6 +93,8 @@ export default function DialogForm(props) {
       title={title}
       actions={actions}
       modal={true}
+      contentStyle={styles.contentStyle}
+      bodyStyle={styles.bodyStyle}
       open={isOpen}
     >
       { entityForm() }
