@@ -51,6 +51,7 @@ const styles = {
     flex: '0 0 auto',
     display: 'flex',
     flexDirection: 'row',
+    alignContent: 'space-between',
     paddingLeft: dimensions.desktopGutterLess,
     zIndex: 3,
     height: dimensions.STREAM_CHANNEL_HEIGHT,
@@ -62,9 +63,7 @@ const styles = {
   },
   dateControl: {
     flex: 'none',
-    width: 56,
-    marginLeft: dimensions.desktopGutter,
-    height: '100%',
+    width: 48,
   },
   ViewSwitcher: {
     flex: '1 1 auto',
@@ -83,7 +82,7 @@ export default function ScheduleTable (props) {
     <div className='ScheduleTable' style={styles.ScheduleTable}>
       <Paper zDepth={2} rounded={false} style={styles.Paper}>
         <div  style={styles.outerContainer}>
-          <Paper zDepth={1} rounded={false} style={styles.topLeftCorner} >
+          <Paper className='ScheduleTable-topLeftCorner' zDepth={1} rounded={false} style={styles.topLeftCorner} >
 
             <ViewSwitcher
               viewGroupedBy={props.streamGrouping}
