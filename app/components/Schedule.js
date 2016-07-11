@@ -8,10 +8,7 @@ import StreamDaysEditor from '../components/StreamDaysEditor'
 
 const styles = {
   Schedule: {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: '1 1 auto',
-    padding: 0,
+    width: '100%',
     height: `calc(100% - ${dimensions.desktopKeylineIncrement}px)`,
   },
 }

@@ -13,42 +13,27 @@ import ViewSwitcher from '../components/ViewSwitcher'
 
 const styles = {
   ScheduleTable: {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: '1 1 auto',
     height: '100%',
     width: '100%',
-  },
-  Paper: {
     display: 'flex',
     flexDirection: 'column',
-    overflow: 'hidden',
   },
-  outerWindow : {
-    flex: '1 1 auto',
-    overflowY: 'scroll',
-    overflowX: 'hidden',
-  },
-  outerContainer: {
+  headerRow: {
+    flex: 'none',
     display: 'flex',
     flexDirection: 'row',
+    alignItems: 'stretch',
+  },
+  bodyRow: {
     flex: 'none',
-  },
-  streamsContainer : {
-    flex: '1 1 auto',
-    overflowY: 'hidden',
-    overflowX: 'scroll',
-    zIndex: 0,
-  },
-  timeStream: {
-    overflowY: 'hidden',
-    overflowX: 'hidden',
-    zIndex: 2,
     display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    height: `calc(100% - ${dimensions.STREAM_CHANNEL_HEIGHT}px)`,
   },
   topLeftCorner: {
     width: dimensions.STREAM_LABEL_WIDTH,
-    flex: '0 0 auto',
+    flex: 'none',
     display: 'flex',
     flexDirection: 'row',
     alignContent: 'space-between',
@@ -56,11 +41,6 @@ const styles = {
     paddingLeft: dimensions.desktopGutterLess,
     zIndex: 3,
     height: dimensions.STREAM_CHANNEL_HEIGHT,
-  },
-  streamLabels: {
-    flex: 'none',
-    width: dimensions.STREAM_LABEL_WIDTH,
-    zIndex: 2,
   },
   dateControl: {
     flex: 'none',
@@ -70,85 +50,97 @@ const styles = {
     flex: '1 1 auto',
     height: '100%'
   },
+  timeStream: {
+    flex: '1 1 auto',
+    overflowY: 'hidden',
+    overflowX: 'scroll',
+    zIndex: 2,
+    display: 'flex',
+  },
+  streamLabels: {
+    flex: 'none',
+    overflowY: 'scroll',
+    overflowX: 'hidden',
+    width: dimensions.STREAM_LABEL_WIDTH,
+    zIndex: 2,
+  },
+  streamsContainer : {
+    flex: '1 1 auto',
+    overflowY: 'hidden',
+    overflowX: 'hidden',
+    zIndex: 0,
+    height: '100%',
+  },
 }
 
 export default function ScheduleTable (props) {
 
-  const onScrollStreams = (event) => {
+  const onScrollTime = (event) => {
     const scrollLeft = event.target.scrollLeft
-    document.getElementById('TimeStreamInnerWindow').scrollLeft = scrollLeft
+    document.getElementById('StreamsContainer').scrollLeft = scrollLeft
+  }
+
+  const onScrollResources = (event) => {
+    const scrollTop = event.target.scrollTop
+    document.getElementById('StreamsContainer').scrollTop = scrollTop
   }
 
   return (
-    <div className='ScheduleTable' style={styles.ScheduleTable}>
-      <Paper zDepth={2} rounded={false} style={styles.Paper}>
-        <div  style={styles.outerContainer}>
-          <Paper className='ScheduleTable-topLeftCorner' zDepth={1} rounded={false} style={styles.topLeftCorner} >
+    <Paper className="ScheduleTable"
+      zDepth={2} rounded={false} style={styles.ScheduleTable} >
 
-            <ViewSwitcher
-              viewGroupedBy={props.streamGrouping}
-              onViewGroupChange={props.regroupStreams}
-              layoutStyles={styles.ViewSwitcher}
-            />
+      <div className="ScheduleTable-headerRow"
+        style={styles.headerRow} >
 
-            <div style={styles.dateControl} >
-              <IconButton
-                onTouchTap={() => {
-                  const dateCount = props.dates.length
-                  const startDate = props.dates[0]
-                  const endDate = props.dates[dateCount - 1]
-
-                  props.editDateRange(startDate, endDate)
-                }}
-                tooltip="Change date range"
-                >
-                <FontIcon
-                  hoverColor={colors.accent1Color}
-                  className="material-icons"
-                  >
-                  date_range
-                </FontIcon>
-              </IconButton>
-            </div>
-
-          </Paper>
-
-          <Paper id="TimeStreamInnerWindow"
-            zDepth={2}
-            rounded={false}
-            style={styles.timeStream}
-            >
-
-              <TimeStream dates={props.dates} />
-
-          </Paper>
-        </div>
-
-        <div style={styles.outerWindow}>
-          <div style={styles.outerContainer}>
-            <Paper zDepth={2} rounded={false} style={styles.streamLabels}>
-
-              <StreamLabelsContainer
-                {...props}
-                viewGroupedBy={props.streamGrouping}
-              />
-
-            </Paper>
-
-            <div id='StreamsContainer'
-              style={styles.streamsContainer}
-              onScroll={onScrollStreams} >
-
-              <ResourceActivityStreamsContainer
-                {...props}
-                viewGroupedBy={props.streamGrouping}
-              />
-
-            </div>
+        <Paper className='ScheduleTable-topLeftCorner'
+          zDepth={1} rounded={false} style={styles.topLeftCorner} >
+          <ViewSwitcher
+            viewGroupedBy={props.streamGrouping}
+            onViewGroupChange={props.regroupStreams}
+            layoutStyles={styles.ViewSwitcher} />
+          <div style={styles.dateControl} >
+            <IconButton
+              onTouchTap={() => {
+                const dateCount = props.dates.length
+                const startDate = props.dates[0]
+                const endDate = props.dates[dateCount - 1]
+                props.editDateRange(startDate, endDate)
+              }}
+              tooltip="Change date range" >
+              <FontIcon className="material-icons"
+                hoverColor={colors.accent1Color} >
+                date_range
+              </FontIcon>
+            </IconButton>
           </div>
+        </Paper>
+
+        <Paper className="ScheduleTable-timeStream"
+          zDepth={2} rounded={false} style={styles.timeStream}
+          onScroll={onScrollTime} >
+          <TimeStream dates={props.dates} />
+        </Paper>
+
+      </div>
+
+      <div className="ScheduleTable-bodyRow" style={styles.bodyRow} >
+
+        <Paper className="ScheduleTable-streamLabels"
+          zDepth={2} rounded={false} style={styles.streamLabels}
+          onScroll={onScrollResources} >
+          <StreamLabelsContainer {...props}
+            viewGroupedBy={props.streamGrouping} />
+        </Paper>
+
+        <div id='StreamsContainer' className="ScheduleTable-streamsContainer"
+          style={styles.streamsContainer} >
+          <ResourceActivityStreamsContainer {...props}
+            viewGroupedBy={props.streamGrouping} />
         </div>
-      </Paper>
-    </div>
+
+      </div>
+
+    </Paper>
   )
 }
 
